@@ -42,3 +42,39 @@
 # 1 <= s.length <= 15
 # s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 # It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+
+
+def roman_to_int(s: str) -> int:
+    """Convert a roman numeral string to its integer value."""
+    vals = {'I': 1, 'V': 5, 'X': 10, 'L': 50,
+            'C': 100, 'D': 500, 'M': 1000}
+    total = 0
+    prev = 0
+    for ch in reversed(s):
+        curr = vals.get(ch, 0)
+        if curr < prev:
+            total -= curr
+        else:
+            total += curr
+        prev = curr
+    return total
+
+
+import sys
+input = sys.stdin.readline
+
+# handle both single-string and multiple test cases
+first = input().strip()
+if not first:
+    sys.exit(0)
+
+if first.isdigit():
+    t = int(first)
+    for _ in range(t):
+        line = input().strip()
+        if not line:
+            line = input().strip()
+        print(roman_to_int(line))
+else:
+    print(roman_to_int(first))
+
